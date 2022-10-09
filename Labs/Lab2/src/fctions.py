@@ -19,3 +19,24 @@ def tv(X):
             sum +=((XDh[m][n]**2 + DvX[m][n]**2)**(1/2))
             
     return(sum)
+
+def gradient2D_adjoint(Y):
+    """return D* as defined above"""
+    if(len(Y.shape)!=3):
+        raise AssertionError
+    else:
+        Yh = Y[0]
+
+        Yh_1=Yh[:,0].reshape(-1,1)
+        Yh_N_1 = Yh[:,-2].reshape(-1,1)
+
+        Yv = Y[1]
+        Yv_1_tilde = Yv.T[:,0].reshape(-1,1)
+        Yv_N_1_tilde = Yv.T[:,-2].reshape(-1,1)
+
+        print( Yh.shape,Yv.shape)
+        YhDh= np.concatenate((-Yh_1,-np.diff(Yh[:,:-1]),Yh_N_1),axis=1)
+        DvYv= np.concatenate((-Yv_1_tilde,-np.diff(Yv.T[:,:-1]),Yv_N_1_tilde),axis=1).T
+
+        print( YhDh.shape,DvYv.shape)
+        return(YhDh + DvYv)
