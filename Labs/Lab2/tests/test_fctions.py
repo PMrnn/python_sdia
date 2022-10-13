@@ -15,20 +15,20 @@ X2_res = (np.array([[1,0],[1,0]]),np.array([[2,2],[0,0]]))
 
 def test_gradient2D():
     assert (np.array_equal(gradient2D(X1),X1_res) and np.array_equal(gradient2D(X2),X2_res))
-    
+
 def test_bug():
     with pytest.raises(AssertionError):
         gradient2D(X_dim_wrong)
 
 
-tv_X1 = (1.+9.)**(1/2) + (1.+9.)**(1/2) + (0.+9.)**(1/2) + (1.+9.)**(1/2) +(1.+4.)**(1/2) + (1.)**(1/2) + (4.+1.)**(1/2) + (4.+1.)**(1/2) + (1.)**(1/2) + (4.)**(1/2) + (4.)**(1/2) 
-tv_X2 = (1.+4.)**(1/2) +(4.)**(1/2) +(1.)**(1/2) 
+tv_X1 = (1.+9.)**(1/2) + (1.+9.)**(1/2) + (0.+9.)**(1/2) + (1.+9.)**(1/2) +(1.+4.)**(1/2) + (1.)**(1/2) + (4.+1.)**(1/2) + (4.+1.)**(1/2) + (1.)**(1/2) + (4.)**(1/2) + (4.)**(1/2)
+tv_X2 = (1.+4.)**(1/2) +(4.)**(1/2) +(1.)**(1/2)
 def test_tv():
     assert(tv(X1) == tv_X1 and tv(X2)== tv_X2)
 
 
 def test_gradient2D_adjoint():
-    rd.seed(3)
+    rd.seed(8)
     m = rd.randint(3,10)
     n = rd.randint(3,10)
     X = np.array([[rd.randint(0,9) for k in range(m)] for i in range(n)])
